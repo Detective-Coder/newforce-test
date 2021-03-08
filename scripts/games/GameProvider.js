@@ -1,70 +1,14 @@
 let games = []
 
-export const useGames = () => {
-  return games.slice()
-}
-
-// export const getGames = () => {
-//   fetch("https://rawg-video-games-database.p.rapidapi.com/games", {
-//     "method": "GET",
-//     "headers": {
-//       // "Content-Type": "application/json",
-//       "x-rapidapi-key": "e1f9854a79mshacce72468e7cf33p1d5bb1jsna0dba16a5b1f",
-//       "x-rapidapi-host": "rawg-video-games-database.p.rapidapi.com"
-      
-//       // "API Key": "74a1e4d39ad641bdb76b9297ed66dd8b"
-//     }
-//   })
-//   .then(response => response.body)
-//   .then(rb => {
-//     const reader = rb.getReader();
-
-//     return new ReadableStream({
-//       start(controller) {
-//         // The following function handles each data chunk
-//         function push() {
-//           // "done" is a Boolean and value a "Uint8Array"
-//           reader.read().then( ({done, value}) => {
-//             // If there is no more data to read
-//             if (done) {
-//               console.log('done', done);
-//               controller.close();
-//               return;
-//             }
-//             // Get the data and send it to the browser via the controller
-//             controller.enqueue(value);
-//             // Check chunks by logging to the console
-//             console.log(done, value);
-//             push();
-//           })
-//         }
-
-//         push();
-//       }
-//     });
-//   })
-//   .then(stream => {
-//     // Respond with our stream
-//     return new Response(stream, { headers: { "Content-Type": "text/html" } }).text();
-//   })
-//   .then(result => {
-//     // Do things with result
-//     console.log(result);
-//     const gamesContainer = document.querySelector("main")
-
-
-//     gamesContainer.innerHTML = `<h2>Games</h2>${result}`
-//   });
-// }
+const apiKey = "e1f9854a79mshacce72468e7cf33p1d5bb1jsna0dba16a5b1f"
 
 export const getGames = () => {
   fetch("https://rawg-video-games-database.p.rapidapi.com/games", {
     "method": "GET",
     "headers": {
       // "Content-Type": "application/json",
-      "x-rapidapi-key": "e1f9854a79mshacce72468e7cf33p1d5bb1jsna0dba16a5b1f",
+      "x-rapidapi-key": apiKey,
       "x-rapidapi-host": "rawg-video-games-database.p.rapidapi.com"
-      // "API Key": "74a1e4d39ad641bdb76b9297ed66dd8b"
     }
   })
   .then((response) => response.json())
@@ -72,10 +16,12 @@ export const getGames = () => {
      console.log(gamesdata.results)
      games = gamesdata.results
      console.log(games)
-     const gamesContainer = document.querySelector("main")
-     gamesContainer.innerHTML = `<h2>Games</h2><div class="game-container">${games[0].name}</div>`
+     let gamesContainer = document.querySelector("main")
+     gamesContainer.innerHTML = `<h2>Games</h2><div class="game-container"><img src="${games[0].background_image}" height="200"><br><h3>${games[0].name}<br><h4>Genre:</h4><p>${games[0].genres[0].name}</p><p>${games[0].genres[1].name}</p></h3></div>`
    })
   
 }
+console.log(games)
+export const useGames = () => games.slice()
 
 
