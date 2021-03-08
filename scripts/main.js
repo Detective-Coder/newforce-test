@@ -1,6 +1,4 @@
 import { getGames } from "./games/GameProvider.js"
-// import {GameList} from "./games/GameString.js"
+import {GameList} from "./games/GameList.js"
 
-getGames()
-
-// GameList()
+getGames().then(GameList)
